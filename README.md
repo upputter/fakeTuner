@@ -58,7 +58,8 @@ Ausgehend von folgender beispielhaften Struktur ...
 |- Webserver-Wurzel
   |- .htaccess
   |- /fakeTuner/
-    |- /vTuner.php
+    |- /index.php
+    |- /stationsList.php
 ```
  .. kann die `.htaccess`-Datei so aussehen:
  ```
