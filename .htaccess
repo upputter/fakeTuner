@@ -1,0 +1,5 @@
+# fajeTuner redirect for local server
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteRule ^setupapp/amit/asp/BrowseXML/loginXML\.asp$ fakeTuner/index\.php
+</IfModule>
