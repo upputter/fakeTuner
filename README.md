@@ -13,7 +13,7 @@ Ich bin nicht der erste Mensch auf dem Planeten, der von der Abschaltung eines v
 Es gibt aber Hilfen. Mögliche Alternativen sind Werkzeuge wie [YCast](https://github.com/milaq/YCast) oder [Ytuner](https://github.com/coffeegreg/YTuner). Sie stellen den Geräten die benötigten Informationen wieder bereit.
 Innerhalb des lokalen Netzwerkes wird hierfür die `*.vtuner.com`-Adresse auf einen eigenen Dienst umgeleitet.
 
-Für mein altes Sagem funktioneren diese Alternativen leider nicht. Die XML-Daten sind falsch formatiert! Das Radio zeigt nur angeschnitte Einträge und ungültige Streams an.
+Für mein altes Sagem funktionieren diese Alternativen leider nicht. Die XML-Daten sind falsch formatiert! Das Radio zeigt nur angeschnittene Einträge und ungültige Streams an.
 
 ## Lösung
 Egal wie, das WLAN-Radio muss mit einem alternativen Dienst kommunizieren, um die Adressen der Radiosender zu erhalten.
@@ -27,7 +27,7 @@ Wenn der Router bspw. DNSmasq zur Verfügung stellt, diesen Dienst aktivieren un
 ```
 address=/.vtuner.com/192.168.0.123
 ```
-**192.168.0.123** ist die IP-Adresse des Zielrechners auf dem der Dienst läuft, der die Daten bereit stellen soll.
+**192.168.0.123** ist die IP-Adresse des Zielrechners auf dem der Dienst läuft, der die Daten bereitstellen soll.
 
 ### Radiosender konfigurieren
 In der Datei `stationsList.php` wird ein Array erwartet, welches aus den jeweiligen Einträgen der Radiosender besteht.
@@ -48,9 +48,9 @@ Die Adressen der Sender können auf https://radio-browser.info gefunden werden. 
 
 ### FakeTuner starten
 
-Das Gerät beginnt alle Sitzungen mit der Anfrage an die Adresse `http://sgame.vtuner.com/setupapp/amit/asp/BrowseXML/loginXML.asp`. Ein Webserver muss auf dem Zielrechner (Bsp.-IP 192.168.0.123) auf Port `80` laufen.
+Das Gerät beginnt alle Sitzungen mit der Anfrage an die Adresse `http://sagem.vtuner.com/setupapp/amit/asp/BrowseXML/loginXML.asp`. Ein Webserver muss auf dem Zielrechner (Bsp.-IP 192.168.0.123) auf Port `80` laufen.
 
-Entweder der Webserver stell die gewünschte Ordnerstruktur bereit oder per `.htaccess` / `vHost`-Konfiguration werden die Anfragen umgeleitet (es wird von einem Apache Webserver ausgegangen).
+Entweder der Webserver stellt die gewünschte Ordnerstruktur bereit oder per `.htaccess` / `vHost`-Konfiguration werden die Anfragen umgeleitet (es wird von einem Apache Webserver ausgegangen).
 
 Ausgehend von folgender beispielhaften Struktur ...
 
@@ -65,14 +65,14 @@ Ausgehend von folgender beispielhaften Struktur ...
  ```
  <IfModule mod_rewrite.c>
     RewriteEngine on
-    RewriteRule ^setupapp/amit/asp/BrowseXML/loginXML\.asp$ faeTuner/vTuner\.php
+    RewriteRule ^setupapp/amit/asp/BrowseXML/loginXML\.asp$ fakeTuner/vTuner\.php
 </IfModule>
 ```
 
 Alle Anfragen werden auf den `fakeTuner` umgeleitet.
 
 ## Wie es funktioniert
-Inspiriert von den zuvor genannten alternativen Werkzeugen (YCast/YTuner) ermöglicht der `fakeTuner` eine pseudo-Anmeldung für das WLAN-Radio und spielt eine kleine Liste von Webradios aus. Diese können dann als lokale Favoriten (Herzchen-Taste auf der Fernbedienung) gespeichert werden. Für das schnöde hören der Radiosender, muss die hier gezeigte Lösung nicht genutzt werden, nur wenn die Liste der lokal gespeicherten Sender aktualisiert werden soll.
+Inspiriert von den zuvor genannten alternativen Werkzeugen (YCast/YTuner) ermöglicht der `fakeTuner` eine Pseudo-Anmeldung für das WLAN-Radio und spielt eine kleine Liste von Webradios aus. Diese können dann als lokale Favoriten (Herzchen-Taste auf der Fernbedienung) gespeichert werden. Für das schnöde Hören der Radiosender, muss die hier gezeigte Lösung nicht genutzt werden, nur wenn die Liste der lokal gespeicherten Sender aktualisiert werden soll.
 Der Trick in der Lösung ist die Formatierung der XML-Daten. Das Sagem WLAN-Radio möchte nämlich für jedes XML-Tag eine neue Zeile - ohne Einrückungen!
 
 So kann eine Liste mit einem Eintrag (NDR-Kultur) aussehen, die vom Sagem WLAN-Radio gelesen werden kann:
